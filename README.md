@@ -27,7 +27,7 @@ import (
 
 func main() {
 	html := `<html class="123">....<div class="789">....</div><div class="456">....</div></html>`
-	x, _ := css.NewXpathFromStr(html)
+	x, _ := css.NewCssFromStr(html)
 	fmt.Println(x)
 }
 ```
