@@ -14,7 +14,7 @@ go get github.com/lizongying/go-css
 
 * get attr `@attr`
 * For more usage, please refer to the test
-  [css_test](./test/css_test.go)
+  [selector_test](./selector/selector_test.go)
 
 
 ```go
@@ -22,12 +22,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/lizongying/go-css/css"
+	"github.com/lizongying/go-css/selector"
 )
 
 func main() {
 	html := `<html class="123">....<div class="789">....</div><div class="456">....</div></html>`
-	x, _ := css.NewCssFromStr(html)
+	x, _ := selector.NewSelectorFromStr(html)
 	fmt.Println(x)
 }
 ```
