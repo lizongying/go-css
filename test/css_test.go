@@ -140,20 +140,34 @@ func TestCssFindNodeManyFindStrMany(t *testing.T) {
 			assert.Equal(t, li, []string{"789", "jqk"})
 		}
 	}
+	for k, i := range x.FindNodeMany(`div.abc div`) {
+		li := i.FindStrMany(`@class`)
+		t.Log("li", li)
+		if k == 0 {
+			assert.Equal(t, li, []string{"789"})
+		}
+		if k == 1 {
+			assert.Equal(t, li, []string{"456"})
+		}
+	}
 }
 
 // TestCssFindNodeOneFindStrMany go test -v test/css_test.go -run TestCssFindNodeOneFindStrMany
 func TestCssFindNodeOneFindStrMany(t *testing.T) {
-	html := `<div class="123">....<div class="789">....</div><div class="456">....</div></div><div class="123">....<div class="789">....</div><div class="456">....</div></div>`
+	html := `<div class="123">....<div class="789">....</div><div class="456">....</div></div><div class="123">....<div class="789">....</div><div class="457">....</div></div>`
 	x, _ := css.NewCssFromStr(html)
 
 	li := x.FindNodeOne(`div[class="123"]`).FindStrMany(`div@class`)
 	t.Log(li)
 	assert.Equal(t, li, []string{"789", "456"})
 
-	li = x.FindNodeOneOr(`div[class="1234"]`).FindStrMany(`div@class`)
+	li = x.FindNodeOneOr(`div[class="123"]`).FindStrMany(`@class`)
 	t.Log(li)
-	assert.Equal(t, li, []string(nil))
+	assert.Equal(t, li, []string{"789", "456"})
+
+	li = x.FindNodeMany(`div[class="123"]`)[1].FindStrMany(`@class`)
+	t.Log(li)
+	assert.Equal(t, li, []string{"789", "457"})
 }
 
 // TestCssOutHtml go test -v test/css_test.go -run TestCssOutHtml

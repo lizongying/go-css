@@ -2,6 +2,7 @@ package css
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"io"
 	"os"
@@ -91,11 +92,16 @@ func (x *Css) FindStrMany(css string) (list []string) {
 	}
 	index := strings.LastIndex(css, "@")
 	attr := ""
-	if index > 0 {
+	if index > -1 {
 		attr = css[index+1:]
 		css = css[:index]
 	}
-	ns := x.node.Find(css[:index])
+	var ns *goquery.Selection
+	if index == 0 {
+		ns = x.node.Find(fmt.Sprintf(`[%s]`, attr))
+	} else {
+		ns = x.node.Find(css[:index])
+	}
 	for i := range ns.Nodes {
 		n := ns.Eq(i)
 		str := ""
@@ -123,11 +129,16 @@ func (x *Css) FindStrOne(css string) (str string) {
 	}
 	index := strings.LastIndex(css, "@")
 	attr := ""
-	if index > 0 {
+	if index > -1 {
 		attr = css[index+1:]
 		css = css[:index]
 	}
-	n := x.node.Find(css).First()
+	var n *goquery.Selection
+	if index == 0 {
+		n = x.node.Find(fmt.Sprintf(`[%s]`, attr)).First()
+	} else {
+		n = x.node.Find(css).First()
+	}
 	if n == nil {
 		return
 	}
@@ -152,11 +163,16 @@ func (x *Css) FindStrOneOr(css string, or string) (str string) {
 	}
 	index := strings.LastIndex(css, "@")
 	attr := ""
-	if index > 0 {
+	if index > -1 {
 		attr = css[index+1:]
 		css = css[:index]
 	}
-	n := x.node.Find(css).First()
+	var n *goquery.Selection
+	if index == 0 {
+		n = x.node.Find(fmt.Sprintf(`[%s]`, attr)).First()
+	} else {
+		n = x.node.Find(css).First()
+	}
 	if n == nil {
 		str = or
 		return
@@ -184,11 +200,16 @@ func (x *Css) FindIntMany(css string) (list []int) {
 	}
 	index := strings.LastIndex(css, "@")
 	attr := ""
-	if index > 0 {
+	if index > -1 {
 		attr = css[index+1:]
 		css = css[:index]
 	}
-	ns := x.node.Find(css)
+	var ns *goquery.Selection
+	if index == 0 {
+		ns = x.node.Find(fmt.Sprintf(`[%s]`, attr))
+	} else {
+		ns = x.node.Find(css[:index])
+	}
 	for i := range ns.Nodes {
 		n := ns.Eq(i)
 		str := ""
@@ -214,11 +235,16 @@ func (x *Css) FindIntOne(css string) (i int) {
 	}
 	index := strings.LastIndex(css, "@")
 	attr := ""
-	if index > 0 {
+	if index > -1 {
 		attr = css[index+1:]
 		css = css[:index]
 	}
-	n := x.node.Find(css).First()
+	var n *goquery.Selection
+	if index == 0 {
+		n = x.node.Find(fmt.Sprintf(`[%s]`, attr)).First()
+	} else {
+		n = x.node.Find(css).First()
+	}
 	if n == nil {
 		return
 	}
@@ -248,11 +274,16 @@ func (x *Css) FindIntOneOr(css string, or int) (i int) {
 	}
 	index := strings.LastIndex(css, "@")
 	attr := ""
-	if index > 0 {
+	if index > -1 {
 		attr = css[index+1:]
 		css = css[:index]
 	}
-	n := x.node.Find(css).First()
+	var n *goquery.Selection
+	if index == 0 {
+		n = x.node.Find(fmt.Sprintf(`[%s]`, attr)).First()
+	} else {
+		n = x.node.Find(css).First()
+	}
 	if n == nil {
 		i = or
 		return
