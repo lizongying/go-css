@@ -1,4 +1,4 @@
-module github.com/lizongying/go-css
+module github.com/lizongying/go-query
 
 go 1.18
 
