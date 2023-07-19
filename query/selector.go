@@ -25,6 +25,17 @@ func (s *Selector) GetNode() (node *goquery.Selection) {
 	return
 }
 
+func (s *Selector) Remove(css string) (node *goquery.Selection) {
+	if s == nil {
+		return
+	}
+	if s.node == nil {
+		return
+	}
+	s.node.RemoveFiltered(css)
+	return s.node
+}
+
 // FindNodeMany find nodes
 func (s *Selector) FindNodeMany(css string) (selectors []*Selector) {
 	if s == nil {
