@@ -41,6 +41,14 @@ func TestSelectorFromFile(t *testing.T) {
 	assert.Equal(t, "html", x.GetNode().Get(0).FirstChild.Data)
 }
 
+// TestSelector_Remove go test -v selector/*.go -run TestSelector_Remove
+func TestSelector_Remove(t *testing.T) {
+	html := []byte(`<html class="123">....<div class="789">....</div><div class="456">....</div></html>`)
+	x, _ := NewSelectorFromBytes(html)
+	x.Remove("div")
+	assert.Equal(t, "<html class=\"123\"><head></head><body>....</body></html>", x.OutHtml(false))
+}
+
 // TestSelectorFindStrMany go test -v selector/*.go -run TestSelectorFindStrMany
 func TestSelectorFindStrMany(t *testing.T) {
 	html := []byte(`<html class="123">....<div class="789">....</div><div class="456">....</div></html>`)

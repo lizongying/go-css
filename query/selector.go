@@ -25,15 +25,15 @@ func (s *Selector) GetNode() (node *goquery.Selection) {
 	return
 }
 
-func (s *Selector) Remove(css string) (node *goquery.Selection) {
+func (s *Selector) Remove(css string) *Selector {
 	if s == nil {
-		return
+		return s
 	}
 	if s.node == nil {
-		return
+		return s
 	}
-	s.node.RemoveFiltered(css)
-	return s.node
+	s.node.Find(css).Remove()
+	return s
 }
 
 // FindNodeMany find nodes
