@@ -1,33 +1,34 @@
-# go-query
+# go-css
 
-golang实现的简单query选择器，使用更简单。simple query selector
+golang实现的简单css选择器，使用更简单。simple css selector
 
-[go-query](https://github.com/lizongying/go-query)
-[document](https://pkg.go.dev/github.com/lizongying/go-query)
+[go-css](https://github.com/lizongying/go-css)
+
+[document](https://pkg.go.dev/github.com/lizongying/go-css)
 
 ## Install
 
 ```
-go get github.com/lizongying/go-query
+go get -u github.com/lizongying/go-css
 ```
 
 ## Usage
 
 * get attr `@attr`
 * For more usage, please refer to the test
-  [selector_test](./query/selector_test.go)
+  [selector_test](./css/selector_test.go)
 
 ```go
 package main
 
 import (
 	"fmt"
-	"github.com/lizongying/go-query/query"
+	"github.com/lizongying/go-query/css"
 )
 
 func main() {
 	html := `<html class="abc">....<div class="def">....</div><div class="gkl">123</div></html>`
-	x, _ := query.NewSelectorFromStr(html)
+	x, _ := css.NewSelectorFromStr(html)
 
 	s := x.FindStrOne(`.def`)
 	//....

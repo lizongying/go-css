@@ -1,4 +1,4 @@
-package query
+package css
 
 import (
 	"github.com/stretchr/testify/assert"

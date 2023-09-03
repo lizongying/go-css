@@ -1,4 +1,4 @@
-package query
+package css
 
 import (
 	"bytes"
@@ -11,6 +11,82 @@ import (
 
 type Selector struct {
 	node *goquery.Selection
+}
+
+// One return a result
+func (s *Selector) One(path string) (result *Result) {
+	if s == nil {
+		return
+	}
+	if s.node == nil {
+		return
+	}
+	index := strings.LastIndex(path, "@")
+	attr := ""
+	if index > -1 {
+		attr = path[index+1:]
+		path = path[:index]
+	}
+	var n *goquery.Selection
+	if index == 0 {
+		for i := range s.node.Nodes {
+			if _, exists := s.node.Eq(i).Attr(attr); exists {
+				n = s.node.Eq(i)
+				break
+			}
+		}
+	} else {
+		n = s.node.Find(path).First()
+	}
+	if n == nil {
+		return
+	}
+	str := ""
+	if attr != "" {
+		str, _ = n.Attr(attr)
+	} else {
+		str = n.Text()
+	}
+	result = NewResult(str)
+	return
+}
+
+// Many return a result array
+func (s *Selector) Many(path string) (results []*Result) {
+	if s == nil {
+		return
+	}
+	if s.node == nil {
+		return
+	}
+	index := strings.LastIndex(path, "@")
+	attr := ""
+	if index > -1 {
+		attr = path[index+1:]
+		path = path[:index]
+	}
+	var ns *goquery.Selection
+	if index == 0 {
+		ns = s.node
+	} else {
+		ns = s.node.Find(path)
+	}
+	for i := range ns.Nodes {
+		n := ns.Eq(i)
+		if index > -1 {
+			if _, exists := n.Attr(attr); !exists {
+				continue
+			}
+		}
+		str := ""
+		if attr != "" {
+			str, _ = n.Attr(attr)
+		} else {
+			str = n.Text()
+		}
+		results = append(results, NewResult(str))
+	}
+	return
 }
 
 // GetNode get node

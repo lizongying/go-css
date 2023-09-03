@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/lizongying/go-query/query"
+	"github.com/lizongying/go-css/css"
 )
 
 func main() {
 	html := `<html class="abc">....<div class="def">....</div><div class="gkl">123</div></html>`
-	x, _ := query.NewSelectorFromStr(html)
+	x, _ := css.NewSelectorFromStr(html)
 
 	s := x.FindStrOne(`.def`)
 	//....
