@@ -23,7 +23,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/lizongying/go-query/css"
+	"github.com/lizongying/go-css/css"
 )
 
 func main() {

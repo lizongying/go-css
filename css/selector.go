@@ -113,24 +113,24 @@ func (s *Selector) Remove(css string) *Selector {
 }
 
 // FindNodeMany find nodes
-func (s *Selector) FindNodeMany(css string) (selectors []*Selector) {
+func (s *Selector) FindNodeMany(path string) (selectors []*Selector) {
 	if s == nil {
 		return
 	}
 	if s.node == nil {
 		return
 	}
-	index := strings.LastIndex(css, "@")
+	index := strings.LastIndex(path, "@")
 	attr := ""
 	if index > -1 {
-		attr = css[index+1:]
-		css = css[:index]
+		attr = path[index+1:]
+		path = path[:index]
 	}
 	var ns *goquery.Selection
 	if index == 0 {
 		ns = s.node
 	} else {
-		ns = s.node.Find(css)
+		ns = s.node.Find(path)
 	}
 	for i := range ns.Nodes {
 		n := ns.Eq(i)
@@ -147,18 +147,18 @@ func (s *Selector) FindNodeMany(css string) (selectors []*Selector) {
 }
 
 // FindNodeOne find node or nil
-func (s *Selector) FindNodeOne(css string) (selector *Selector) {
+func (s *Selector) FindNodeOne(path string) (selector *Selector) {
 	if s == nil {
 		return
 	}
 	if s.node == nil {
 		return
 	}
-	index := strings.LastIndex(css, "@")
+	index := strings.LastIndex(path, "@")
 	attr := ""
 	if index > -1 {
-		attr = css[index+1:]
-		css = css[:index]
+		attr = path[index+1:]
+		path = path[:index]
 	}
 	var n *goquery.Selection
 	if index == 0 {
@@ -169,7 +169,7 @@ func (s *Selector) FindNodeOne(css string) (selector *Selector) {
 			}
 		}
 	} else {
-		n = s.node.Find(css).First()
+		n = s.node.Find(path).First()
 	}
 	if n == nil {
 		return
@@ -181,7 +181,7 @@ func (s *Selector) FindNodeOne(css string) (selector *Selector) {
 }
 
 // FindNodeOneOr find node
-func (s *Selector) FindNodeOneOr(css string) (selector *Selector) {
+func (s *Selector) FindNodeOneOr(path string) (selector *Selector) {
 	if s == nil {
 		selector = &Selector{}
 		return
@@ -190,11 +190,11 @@ func (s *Selector) FindNodeOneOr(css string) (selector *Selector) {
 		selector = &Selector{}
 		return
 	}
-	index := strings.LastIndex(css, "@")
+	index := strings.LastIndex(path, "@")
 	attr := ""
 	if index > -1 {
-		attr = css[index+1:]
-		css = css[:index]
+		attr = path[index+1:]
+		path = path[:index]
 	}
 	var n *goquery.Selection
 	if index == 0 {
@@ -205,7 +205,7 @@ func (s *Selector) FindNodeOneOr(css string) (selector *Selector) {
 			}
 		}
 	} else {
-		n = s.node.Find(css).First()
+		n = s.node.Find(path).First()
 	}
 	if n == nil {
 		selector = &Selector{}
@@ -218,24 +218,24 @@ func (s *Selector) FindNodeOneOr(css string) (selector *Selector) {
 }
 
 // FindStrMany find a string list
-func (s *Selector) FindStrMany(css string) (list []string) {
+func (s *Selector) FindStrMany(path string) (list []string) {
 	if s == nil {
 		return
 	}
 	if s.node == nil {
 		return
 	}
-	index := strings.LastIndex(css, "@")
+	index := strings.LastIndex(path, "@")
 	attr := ""
 	if index > -1 {
-		attr = css[index+1:]
-		css = css[:index]
+		attr = path[index+1:]
+		path = path[:index]
 	}
 	var ns *goquery.Selection
 	if index == 0 {
 		ns = s.node
 	} else {
-		ns = s.node.Find(css)
+		ns = s.node.Find(path)
 	}
 	for i := range ns.Nodes {
 		n := ns.Eq(i)
@@ -257,18 +257,18 @@ func (s *Selector) FindStrMany(css string) (list []string) {
 }
 
 // FindStrOne find a string
-func (s *Selector) FindStrOne(css string) (str string) {
+func (s *Selector) FindStrOne(path string) (str string) {
 	if s == nil {
 		return
 	}
 	if s.node == nil {
 		return
 	}
-	index := strings.LastIndex(css, "@")
+	index := strings.LastIndex(path, "@")
 	attr := ""
 	if index > -1 {
-		attr = css[index+1:]
-		css = css[:index]
+		attr = path[index+1:]
+		path = path[:index]
 	}
 	var n *goquery.Selection
 	if index == 0 {
@@ -279,7 +279,7 @@ func (s *Selector) FindStrOne(css string) (str string) {
 			}
 		}
 	} else {
-		n = s.node.Find(css).First()
+		n = s.node.Find(path).First()
 	}
 	if n == nil {
 		return
@@ -294,7 +294,7 @@ func (s *Selector) FindStrOne(css string) (str string) {
 }
 
 // FindStrOneOr find a string, will return a default string if you find nothing
-func (s *Selector) FindStrOneOr(css string, or string) (str string) {
+func (s *Selector) FindStrOneOr(path string, or string) (str string) {
 	if s == nil {
 		str = or
 		return
@@ -303,11 +303,11 @@ func (s *Selector) FindStrOneOr(css string, or string) (str string) {
 		str = or
 		return
 	}
-	index := strings.LastIndex(css, "@")
+	index := strings.LastIndex(path, "@")
 	attr := ""
 	if index > -1 {
-		attr = css[index+1:]
-		css = css[:index]
+		attr = path[index+1:]
+		path = path[:index]
 	}
 	var n *goquery.Selection
 	if index == 0 {
@@ -318,7 +318,7 @@ func (s *Selector) FindStrOneOr(css string, or string) (str string) {
 			}
 		}
 	} else {
-		n = s.node.Find(css).First()
+		n = s.node.Find(path).First()
 	}
 	if n == nil {
 		str = or
@@ -338,24 +338,24 @@ func (s *Selector) FindStrOneOr(css string, or string) (str string) {
 }
 
 // FindIntMany find int list
-func (s *Selector) FindIntMany(css string) (list []int) {
+func (s *Selector) FindIntMany(path string) (list []int) {
 	if s == nil {
 		return
 	}
 	if s.node == nil {
 		return
 	}
-	index := strings.LastIndex(css, "@")
+	index := strings.LastIndex(path, "@")
 	attr := ""
 	if index > -1 {
-		attr = css[index+1:]
-		css = css[:index]
+		attr = path[index+1:]
+		path = path[:index]
 	}
 	var ns *goquery.Selection
 	if index == 0 {
 		ns = s.node
 	} else {
-		ns = s.node.Find(css)
+		ns = s.node.Find(path)
 	}
 	for i := range ns.Nodes {
 		n := ns.Eq(i)
@@ -378,18 +378,18 @@ func (s *Selector) FindIntMany(css string) (list []int) {
 }
 
 // FindIntOne find int
-func (s *Selector) FindIntOne(css string) (i int) {
+func (s *Selector) FindIntOne(path string) (i int) {
 	if s == nil {
 		return
 	}
 	if s.node == nil {
 		return
 	}
-	index := strings.LastIndex(css, "@")
+	index := strings.LastIndex(path, "@")
 	attr := ""
 	if index > -1 {
-		attr = css[index+1:]
-		css = css[:index]
+		attr = path[index+1:]
+		path = path[:index]
 	}
 	var n *goquery.Selection
 	if index == 0 {
@@ -400,7 +400,7 @@ func (s *Selector) FindIntOne(css string) (i int) {
 			}
 		}
 	} else {
-		n = s.node.Find(css).First()
+		n = s.node.Find(path).First()
 	}
 	if n == nil {
 		return
@@ -420,7 +420,7 @@ func (s *Selector) FindIntOne(css string) (i int) {
 }
 
 // FindIntOneOr find one int, will return a default int if you find nothing
-func (s *Selector) FindIntOneOr(css string, or int) (i int) {
+func (s *Selector) FindIntOneOr(path string, or int) (i int) {
 	if s == nil {
 		i = or
 		return
@@ -429,11 +429,11 @@ func (s *Selector) FindIntOneOr(css string, or int) (i int) {
 		i = or
 		return
 	}
-	index := strings.LastIndex(css, "@")
+	index := strings.LastIndex(path, "@")
 	attr := ""
 	if index > -1 {
-		attr = css[index+1:]
-		css = css[:index]
+		attr = path[index+1:]
+		path = path[:index]
 	}
 	var n *goquery.Selection
 	if index == 0 {
@@ -444,7 +444,7 @@ func (s *Selector) FindIntOneOr(css string, or int) (i int) {
 			}
 		}
 	} else {
-		n = s.node.Find(css).First()
+		n = s.node.Find(path).First()
 	}
 	if n == nil {
 		i = or
