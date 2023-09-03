@@ -1,23 +1,23 @@
 # go-css
 
-Css Selector in Golang for Easier Use.
+golang实现的简单css选择器，使用更简单。simple css selector
 
 [go-css](https://github.com/lizongying/go-css)
 
 [document](https://pkg.go.dev/github.com/lizongying/go-css)
 
-[中文](./README_CN.md)
+[english](./README.md)
 
-## Install
+## 安装
 
 ```
 go get -u github.com/lizongying/go-css@latest
 ```
 
-## Usage
+## 用法
 
-* get attr `@attr`
-* For more usage, please refer to the test
+* 获取属性 `@attr`
+* 有关更多用法，请参考测试文件。
   [selector_test](./css/selector_test.go)
 
 ```go

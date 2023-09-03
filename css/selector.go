@@ -101,14 +101,14 @@ func (s *Selector) GetNode() (node *goquery.Selection) {
 	return
 }
 
-func (s *Selector) Remove(css string) *Selector {
+func (s *Selector) Remove(path string) *Selector {
 	if s == nil {
 		return s
 	}
 	if s.node == nil {
 		return s
 	}
-	s.node.Find(css).Remove()
+	s.node.Find(path).Remove()
 	return s
 }
 
