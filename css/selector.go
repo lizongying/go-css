@@ -111,6 +111,9 @@ func (s *Selector) Remove(path string) *Selector {
 	s.node.Find(path).Remove()
 	return s
 }
+func (s *Selector) ManySelector(path string) (selectors []*Selector) {
+	return s.FindNodeMany(path)
+}
 
 // FindNodeMany find nodes
 func (s *Selector) FindNodeMany(path string) (selectors []*Selector) {
@@ -144,6 +147,10 @@ func (s *Selector) FindNodeMany(path string) (selectors []*Selector) {
 		})
 	}
 	return
+}
+
+func (s *Selector) OneSelector(path string) (selector *Selector) {
+	return s.FindNodeOne(path)
 }
 
 // FindNodeOne find node or nil
@@ -534,4 +541,8 @@ func (s *Selector) OutHtml(self bool) (str string) {
 		str, _ = s.node.Html()
 	}
 	return
+}
+
+func (s *Selector) String() (str string) {
+	return s.OutHtml(true)
 }
